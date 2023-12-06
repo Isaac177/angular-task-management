@@ -191,4 +191,8 @@ export class TaskService {
   ];
 
   constructor() { }
+
+  getTasks(): Tasks[] {
+    return this.tasks;
+  }
 }
