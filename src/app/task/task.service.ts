@@ -190,9 +190,21 @@ export class TaskService {
 
   ];
 
+  updateTask(updatedTask: Tasks) {
+    const index = this.tasks.findIndex(t => t.id === updatedTask.id);
+    if (index > -1) {
+      this.tasks[index] = updatedTask;
+    }
+  }
+
   constructor() { }
 
   getTasks(): Tasks[] {
     return this.tasks;
+  }
+
+  getStatuses(): string[] {
+    const statuses = new Set(this.tasks.map(task => task.status));
+    return Array.from(statuses);
   }
 }
