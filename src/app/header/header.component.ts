@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import {RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
+import {TaskService} from "../task/task.service";
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
-    RouterLink,
     FormsModule
   ],
   templateUrl: './header.component.html',
@@ -16,6 +15,14 @@ export class HeaderComponent {
   title = '🚀 Task Manager';
   isInputFocused: boolean = false;
   searchTerm: string = '';
+
+  constructor(private taskService: TaskService) {
+  }
+
+  onSearchTermChange() {
+    this.taskService.setSearchTerm(this.searchTerm);
+    console.log('searchTerm: ', this.searchTerm);
+  }
 
   onFocus() {
     this.isInputFocused = true;

@@ -9,7 +9,6 @@
           type="text" [ngModel]="task?.title" (ngModelChange)="task && (task.title = $event)"
           class="input input-bordered"
           placeholder="Title">
-
         <label class="label">
           <span class="label-text lg:mt-4 mt-2">Description</span>
         </label>
@@ -55,6 +54,24 @@
             [ngModel]="task?.dueDate | date: 'yyyy-MM-dd'" (ngModelChange)="onDueDateChange($event)"
             class="input input-bordered"
             placeholder="Due Date">
+        </div>
+
+        <div class="flex flex-col">
+          <label class="label">
+            <span class="label-text lg:mt-4 mt-2">Assignees</span>
+          </label>
+          <select [ngModel]="task?.assignedTo" (ngModelChange)="onAssigneeChange($event)" class="select w-full">
+            <option *ngFor="let assignee of assignees" [ngValue]="assignee">{{ assignee }}</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col">
+          <label class="label">
+            <span class="label-text lg:mt-4 mt-2">Categories</span>
+          </label>
+          <select [ngModel]="task?.category" (ngModelChange)="onCategoryChange($event)" class="select w-full">
+            <option *ngFor="let category of categories" [ngValue]="category">{{ category }}</option>
+          </select>
         </div>
       </div>
     <div class="flex flex-row justify-between items-center mt-4">

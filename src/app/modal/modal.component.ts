@@ -25,11 +25,15 @@ export class ModalComponent {
   statuses: string[] = [];
   priorities: string[] = [];
   efforts: number[] = [];
+  assignees: string[] = [];
+  categories: string[] = [];
 
   constructor(private taskService: TaskService) {
     this.statuses = this.taskService.getStatuses();
     this.priorities = this.taskService.getPriorities();
     this.efforts = this.taskService.getEfforts();
+    this.assignees = this.taskService.getAssignees();
+    this.categories = this.taskService.getCategories();
   }
 
   onDueDateChange(newDateString: string) {
@@ -56,9 +60,21 @@ export class ModalComponent {
     }
   }
 
+  onAssigneeChange(newAssignee: string) {
+    if (this.task) {
+      this.task.assignedTo = newAssignee;
+    }
+  }
+
   closeModal() {
     this.showModal = false;
     this.closeModalEvent.emit();
+  }
+
+  onCategoryChange(newCategory: string) {
+    if (this.task) {
+      this.task.category = newCategory;
+    }
   }
 
   saveChanges() {

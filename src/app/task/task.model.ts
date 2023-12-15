@@ -11,12 +11,6 @@ export interface  Tasks {
   lastUpdated: Date;
   progress: number;
   effort: number;
-  comments: Comment[];
   status: string;
 }
 
-export interface Comment {
-  author: string;
-  message: string;
-  date: Date;
-}
