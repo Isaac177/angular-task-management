@@ -190,14 +190,18 @@ export class TaskService {
 
   ];
 
-  updateTask(updatedTask: Tasks) {
-    const index = this.tasks.findIndex(t => t.id === updatedTask.id);
-    if (index > -1) {
-      this.tasks[index] = updatedTask;
-    }
-  }
 
   constructor() { }
+
+  today: Date = new Date(new Date().setHours(0, 0, 0, 0));
+
+  isPastDue(dueDate: Date | string): boolean {
+    if (!(dueDate instanceof Date)) {
+      dueDate = new Date(dueDate);
+    }
+    const normalizedDueDate = new Date(dueDate.setHours(0, 0, 0, 0));
+    return normalizedDueDate < this.today;
+  }
 
   getTasks(): Tasks[] {
     return this.tasks;
@@ -206,5 +210,15 @@ export class TaskService {
   getStatuses(): string[] {
     const statuses = new Set(this.tasks.map(task => task.status));
     return Array.from(statuses);
+  }
+
+  getPriorities(): string[] {
+    const priorities = new Set(this.tasks.map(task => task.priority));
+      return Array.from(priorities);
+  }
+
+  getEfforts(): number[] {
+    const efforts = new Set(this.tasks.map(task => task.effort));
+    return Array.from(efforts);
   }
 }

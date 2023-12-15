@@ -1,25 +1,8 @@
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-  <div *ngFor="let task of tasks" (click)="openTaskDetails(task)" class="container border p-4 rounded-2xl hover:shadow-md transition-shadow cursor-pointer">
+<div *ngIf="showTaskDetails" class="modal-background lg:fixed lg:inset-0 lg:bg-black lg:bg-opacity-50 flex justify-center items-center">
+  <div *ngIf="task" class="modal-content p-4 bg-white rounded-lg w-full lg:w-auto max-w-4xl">
 
     <div class="flex flex-row justify-between">
       <h3 class="lg:text-lg text-base font-bold">{{ task.title }}</h3>
-      <div class="flex flex-row items-center gap-4">
-      <div class="border rounded-full p-2 hover:cursor-pointer" (click) ='openModal($event, task)'>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-auto cursor-pointer text-yellow-950" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M14.293 3.293a1 1 0 00-1.414 0l-9 9a1 1 0 00-.24.465l-1 4a1 1 0 001.213 1.214l4-1a1 1 0 00.465-.24l9-9a1 1 0 000-1.414l-2-2zM5.5 15.086l.586-2.344 1.758 1.758-2.344.586zm9.414-9.414l-1-1L13 5l1 1-1.586 1.586-1-1L11 6l1.586-1.586zM6.414 13.086l-1.758-1.758 9-9 1.758 1.758-9 9z" clip-rule="evenodd" />
-        </svg>
-      </div>
-        <div class="border rounded-full p-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-auto cursor-pointer text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-        </svg>
-        </div>
-        <div class="border rounded-full p-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-auto cursor-pointer text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M11 17l4 4m0 0l-4-4m4 4V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v11m4 4H5a2 2 0 01-2-2V5a2 2 0 012-2h4a2 2 0 012 2v11m0 0l4-4"/>
-        </svg>
-        </div>
-      </div>
     </div>
 
     <p class="text-ellipsis mt-2 lg:text-sm text-xs">{{ task.description }}</p>
@@ -89,12 +72,6 @@
         }">{{ task.effort }}</span>
       </div>
     </div>
+    <button class="btn btn-outline btn-error" (click)="closeTaskDetail()">Close</button>
   </div>
-  <app-modal [showModal]="showModal" [task]="selectedTask" (closeModalEvent)="closeModal()" (updateTaskEvent)="updateTask($event)"></app-modal>
-  <app-task-detail
-    [showTaskDetails]="showTaskDetails"
-    [task]="selectedTask"
-    *ngIf="showTaskDetails"
-    (closeTaskDetailsEvent)="closeTaskDetails()">
-  </app-task-detail>
 </div>
