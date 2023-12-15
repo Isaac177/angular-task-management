@@ -180,10 +180,6 @@ export class TaskService {
     return normalizedDueDate < this.today;
   }
 
-  getTasks(): Tasks[] {
-    return this.tasks;
-  }
-
   getStatuses(): string[] {
     const statuses = new Set(this.tasks.map(task => task.status));
     return Array.from(statuses);
@@ -225,12 +221,19 @@ export class TaskService {
     return this.tasksSubject.asObservable();
   }
 
-  setTasks(tasks: Tasks[]) {
-    this.tasksSubject.next(tasks);
-  }
-
   getSearchTermObservable(): Observable<string> {
     return this.searchTerms.asObservable();
+  }
+
+  generateNewTaskId(): number {
+    return this.tasks.length > 0
+    ? Math.max(...this.tasks.map(task => task.id)) + 1
+      : 1;
+  }
+
+  addTask(newTask: Tasks) {
+    this.tasks.push(newTask);
+    this.tasksSubject.next(this.tasks);
   }
 
 }
